@@ -41,6 +41,7 @@ private:
 	/* Input Config functions. */
 	void IC_Move_Triggered(const FInputActionValue& Value);
 	void IC_Jump_Started(const FInputActionValue& Value);
+	void IC_Jump_Completed(const FInputActionValue& Value); // This is on letting go of the jump button before max hold time
 	void IC_Jump_Canceled(const FInputActionValue& Value);
 	void IC_Shoot_Triggered(const FInputActionValue& Value);
 #pragma endregion

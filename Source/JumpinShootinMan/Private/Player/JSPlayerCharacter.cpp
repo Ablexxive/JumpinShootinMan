@@ -70,6 +70,7 @@ void AJSPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	if (InputConfig->InputJump != nullptr)
 	{
 		EnhancedInputComponent->BindAction(InputConfig->InputJump, ETriggerEvent::Started, this, &AJSPlayerCharacter::IC_Jump_Started);
+		EnhancedInputComponent->BindAction(InputConfig->InputJump, ETriggerEvent::Completed, this, &AJSPlayerCharacter::IC_Jump_Completed);
 		EnhancedInputComponent->BindAction(InputConfig->InputJump, ETriggerEvent::Canceled, this, &AJSPlayerCharacter::IC_Jump_Canceled);
 	}
 	
@@ -127,6 +128,11 @@ void AJSPlayerCharacter::IC_Move_Triggered(const FInputActionValue& Value)
 void AJSPlayerCharacter::IC_Jump_Started(const FInputActionValue& Value)
 {
 	Jump();
+};
+
+void AJSPlayerCharacter::IC_Jump_Completed(const FInputActionValue& Value)
+{
+	StopJumping();
 };
 
 void AJSPlayerCharacter::IC_Jump_Canceled(const FInputActionValue& Value)
