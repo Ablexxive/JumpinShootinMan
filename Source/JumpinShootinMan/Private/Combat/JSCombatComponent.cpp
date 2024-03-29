@@ -149,11 +149,16 @@ void UJSCombatComponent::DoAttack()
 		return;
 	}
 	
+	// Since we have a lot of different animation states, we aren't using the AttackAnim Sequence and slot paradigm
+	// Instead DoAttack and AttackAnimationComplete are going to be called by an ANS on each attack animation in the Animation Source
+	/*
 	if (UPaperZDAnimInstance* AnimInstance = AnimInstancePtr.Get())
 	{
 		AnimInstance->PlayAnimationOverride(AttackAnimSequence, AttackAnimSequenceSlot, 1, 0, AttackAnimationOverideDelegate);
 		IsAttacking = true;
 	}
+	*/
+	IsAttacking = true;
 }
 
 void UJSCombatComponent::AttackAnimationComplete(bool Success)

@@ -92,6 +92,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="Combat|Attack")
 	void DoAttack();
+	UFUNCTION(BlueprintCallable, Category="Combat|Attack")
+	void AttackAnimationComplete(bool Success); // Pair together for ANS
 	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Combat|Character")
 	int32 MaxHealth = 100;
@@ -120,7 +122,7 @@ private:
 	TWeakObjectPtr<UPaperZDAnimInstance> AnimInstancePtr;
 	
 	FZDOnAnimationOverrideEndSignature AttackAnimationOverideDelegate;
-	void AttackAnimationComplete(bool Success);
+//	void AttackAnimationComplete(bool Success); - Making public for use in ANS
 
 	FTimerHandle StunAnimationTimerHandle;
 	bool StunAnimation_flipflop = false;
