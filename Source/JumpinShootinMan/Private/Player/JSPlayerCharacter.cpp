@@ -17,7 +17,7 @@ AJSPlayerCharacter::AJSPlayerCharacter(const FObjectInitializer& ObjectInitializ
 	SpringArm->SetAbsolute(false, true, false);
 
 	// Eyeball defaults
-	const FRotator SpringArmRotation = FRotator(-10.0, -90.0, 0.0);
+	const FRotator SpringArmRotation = FRotator(0.0, -90.0, 0.0);
 	SpringArm->SetRelativeRotation(SpringArmRotation);
 	SpringArm->TargetArmLength = 750.0;
 
