@@ -55,8 +55,8 @@ void UJSCombatComponent::BeginPlay()
 		HitBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
 
-	// Bind attack animation complete
-	AttackAnimationOverideDelegate.BindUObject(this, &UJSCombatComponent::AttackAnimationComplete);
+	// Bind attack animation complete - We aren't using this method right now for our shoot
+	//AttackAnimationOverideDelegate.BindUObject(this, &UJSCombatComponent::AttackAnimationComplete);
 
 	// Save weakptr to AnimInstance
 	if (const APaperZDCharacter* MyOwnerZD = Cast<APaperZDCharacter>(MyOwner))
@@ -77,7 +77,7 @@ void UJSCombatComponent::BeginPlay()
 void UJSCombatComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
-	AttackAnimationOverideDelegate.Unbind();
+	//AttackAnimationOverideDelegate.Unbind();
 }
 
 void UJSCombatComponent::ToggleAttackHitbox(bool Enabled)
@@ -157,14 +157,30 @@ void UJSCombatComponent::DoAttack()
 		IsAttacking = true;
 	}
 	*/
-	IsAttacking = true;
+	
+	// Instead we use a timer for shot animation length
+	if (const UWorld* World = GetWorld())
+	{
+		World->GetTimerManager().SetTimer(
+			ShootAnimationTimerHandle,
+			this,
+			&UJSCombatComponent::AttackAnimationComplete,
+			ShootAnimationDuration,
+			false);
+		
+		IsAttacking = true;
+	}
 }
 
-void UJSCombatComponent::AttackAnimationComplete(bool Success)
+void UJSCombatComponent::AttackAnimationComplete()
 {
 	// If (success) -> Completed, else Canceled.
 	IsAttacking = false;
-	OnAttackEndSignature.ExecuteIfBound(Success);
+	if (const UWorld* World = GetWorld())
+	{
+		World->GetTimerManager().ClearTimer(ShootAnimationTimerHandle);
+	}
+	OnAttackEndSignature.ExecuteIfBound(true);
 }
 
 void UJSCombatComponent::BeginAttackHitboxOverlap(

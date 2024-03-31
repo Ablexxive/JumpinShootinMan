@@ -108,18 +108,15 @@ void AJSPlayerCharacter::IC_Move_Triggered(const FInputActionValue& Value)
 		const UPawnMovementComponent* MyMovementComponent = GetMovementComponent();
 		if (IsValid(MyMovementComponent))
 		{
-			if (MyMovementComponent->IsMovingOnGround())
+			if (MoveValue.X > 0.0f)
 			{
-				if (MoveValue.X > 0.0f)
-				{
-					const FRotator NewRotation(0.0, 0.0, 0.0);
-					MyPlayerControllerPtr->SetControlRotation(NewRotation);
-				}
-				else if (MoveValue.X < 0.0f)
-				{
-					const FRotator NewRotation(0.0, 180.0, 0.0);
-					MyPlayerControllerPtr->SetControlRotation(NewRotation);
-				}
+				const FRotator NewRotation(0.0, 0.0, 0.0);
+				MyPlayerControllerPtr->SetControlRotation(NewRotation);
+			}
+			else if (MoveValue.X < 0.0f)
+			{
+				const FRotator NewRotation(0.0, 180.0, 0.0);
+				MyPlayerControllerPtr->SetControlRotation(NewRotation);
 			}
 		}
 	}

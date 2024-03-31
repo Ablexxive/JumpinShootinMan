@@ -77,6 +77,9 @@ public:
 	FName ABPJumpName_Dead;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Character")
+	float ShootAnimationDuration = 0.4;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Character")
 	float HitPauseDuration = 0.2;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Character")
@@ -93,8 +96,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="Combat|Attack")
 	void DoAttack();
+	
 	UFUNCTION(BlueprintCallable, Category="Combat|Attack")
-	void AttackAnimationComplete(bool Success); // Pair together for ANS
+	void AttackAnimationComplete();
+	//void AttackAnimationComplete(bool Success); // Pair together for ANS
 	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Combat|Character")
 	int32 MaxHealth = 100;
@@ -128,6 +133,8 @@ private:
 	FTimerHandle StunAnimationTimerHandle;
 	bool StunAnimation_flipflop = false;
 	FVector SpriteDefaultRelativeLocation;
+
+	FTimerHandle ShootAnimationTimerHandle;
 
 	UFUNCTION()
 	void BeginAttackHitboxOverlap(
