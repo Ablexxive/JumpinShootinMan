@@ -8,7 +8,6 @@
 #include "PaperFlipbookComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include "Player/JSPlayerCharacter.h"
 
 UJSCombatComponent::UJSCombatComponent()
 {
