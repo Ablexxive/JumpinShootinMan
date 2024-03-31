@@ -27,12 +27,14 @@ AJSProjectile::AJSProjectile(const FObjectInitializer& ObjectInitializer)
 // Switches to VFX Flipbook and turns off looping
 void AJSProjectile::PlayVFXFlipbook()
 {
+	ProjectileMovementComponent->StopMovementImmediately();
 	if (IsValid(VFXFlipbook))
 	{
 		FlipbookComponent->SetFlipbook(VFXFlipbook);
-		// After the VFX loops, it should trigger "OnFinishedPlaying" and call bound EndProjectile
-		FlipbookComponent->SetLooping(false);
 	}
+	
+	// After the VFX loops, it should trigger "OnFinishedPlaying" and call bound EndProjectile
+	FlipbookComponent->SetLooping(false);
 };
 
 void AJSProjectile::EndProjectile()
