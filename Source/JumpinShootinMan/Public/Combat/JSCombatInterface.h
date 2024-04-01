@@ -20,7 +20,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Combat")
 	virtual UJSCombatComponent* GetCombatComponent() const = 0;
-	
+
 	/*
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "Combat")
 	void ToggleAttackHitbox(bool enabled);

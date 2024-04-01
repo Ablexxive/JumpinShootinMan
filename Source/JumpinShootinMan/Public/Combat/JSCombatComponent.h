@@ -100,6 +100,19 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Combat|Attack")
 	void AttackAnimationComplete();
 	//void AttackAnimationComplete(bool Success); // Pair together for ANS
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Projectile")
+	float MaxShotEnergy = 3.00;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Projectile")
+	float ShotEnergy = 3.00;
+
+	UFUNCTION(BlueprintCallable, Category="Combat|Projectile")
+	void RefundShotEnergy(float ShotCost);
+
+	// Returns False if not enough energy to spend.
+	UFUNCTION(BlueprintCallable, Category="Combat|Projectile")
+	bool SpendShotEnergy(float ShotCost);
 	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Combat|Character")
 	int32 MaxHealth = 100;

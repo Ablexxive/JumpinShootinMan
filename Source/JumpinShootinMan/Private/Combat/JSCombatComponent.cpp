@@ -141,6 +141,17 @@ bool UJSCombatComponent::CanAct() const
 	return !IsStunned && !IsAttacking && !IsDead;
 }
 
+bool UJSCombatComponent::SpendShotEnergy(float ShotCost)
+{
+	if (ShotEnergy - ShotCost >= 0.0)
+	{
+		ShotEnergy -= ShotCost;
+		DoAttack();
+		return true;
+	}
+	return false;
+}
+
 void UJSCombatComponent::DoAttack()
 {
 	if (!CanAct())
@@ -181,6 +192,11 @@ void UJSCombatComponent::AttackAnimationComplete()
 		World->GetTimerManager().ClearTimer(ShootAnimationTimerHandle);
 	}
 	OnAttackEndSignature.ExecuteIfBound(true);
+}
+
+void UJSCombatComponent::RefundShotEnergy(float ShotCost)
+{
+	ShotEnergy = FMath::Clamp(ShotEnergy, ShotEnergy+ShotCost, MaxShotEnergy);	
 }
 
 void UJSCombatComponent::BeginAttackHitboxOverlap(

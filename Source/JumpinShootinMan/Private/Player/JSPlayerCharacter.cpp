@@ -151,5 +151,8 @@ void AJSPlayerCharacter::IC_Shoot_Triggered(const FInputActionValue& Value)
 		return;
 	}
 
-	MyCombatComponent->DoAttack();
+	// We are using Shoot_Started in the player BP to do the attack, don't need to call here.
+	// Probably can just delete this function? But will revisit when adding a charge shot and maybe
+	// a melee shot.
+	//MyCombatComponent->DoAttack();
 };
