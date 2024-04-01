@@ -120,7 +120,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Combat|Character|Runtime")
 	int32 CurrentHealth = 100;
 
-	UPROPERTY(EditAnywhere, Category = "Combat|Character")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Combat|Character")
 	EFaction MyFaction = EFaction::Player;
 	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Combat|Character")
