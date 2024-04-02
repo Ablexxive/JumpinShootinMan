@@ -22,7 +22,7 @@ void AJSCharacter::DamageFlash()
 {
 	if (UMaterialInstanceDynamic* MyMaterial = CharacterMaterialInstancePtr.Get())
 	{
-		MyMaterial->SetScalarParameterValue(FlashMult, 10);
+		MyMaterial->SetScalarParameterValue(FlashMult, 5);
 		
 		if (const UWorld* World = GetWorld())
 		{

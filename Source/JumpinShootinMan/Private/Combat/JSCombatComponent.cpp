@@ -23,7 +23,7 @@ void UJSCombatComponent::BeginPlay()
 	CurrentHealth = MaxHealth;
 	
 	// Find the attack hit box - UBoxComponent
-	const AActor* MyOwner = GetOwner();
+	AActor* MyOwner = GetOwner();
 	TSet<UActorComponent*> AllComponents = MyOwner->GetComponents();
 	for (UActorComponent* ComponentPtr : AllComponents)
 	{
@@ -73,6 +73,9 @@ void UJSCombatComponent::BeginPlay()
 			SpriteDefaultRelativeLocation = MySprite->GetRelativeLocation();
 		}
 	}
+
+	// Bind to OnTakeAnyDamage
+	MyOwner->OnTakeAnyDamage.AddDynamic(this, &UJSCombatComponent::OnTakeDamage);
 }
 
 void UJSCombatComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -95,7 +98,12 @@ void UJSCombatComponent::ToggleAttackHitbox(bool Enabled)
 			HitBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		}
 	}
-	
+}
+
+void UJSCombatComponent::OnTakeDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType,
+	AController* InstigatedBy, AActor* DamageCauser)
+{
+	TakeDamage(Damage);
 }
 
 void UJSCombatComponent::TakeDamage(uint8 InDamage)

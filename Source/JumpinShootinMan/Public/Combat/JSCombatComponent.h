@@ -128,7 +128,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Combat")
 	void ToggleAttackHitbox(bool Enabled);
-
+	
 	UFUNCTION(BlueprintCallable, Category = "Combat")
 	void TakeDamage(uint8 InDamage);
 
@@ -157,6 +157,14 @@ private:
 		int32 OtherBodyIndex,
 		bool bFromSweep,
 		const FHitResult& SweepResult);
+	
+	UFUNCTION()
+	void OnTakeDamage(
+		AActor* DamagedActor,
+		float Damage,
+		const class UDamageType* DamageType,
+		class AController* InstigatedBy,
+		AActor* DamageCauser);
 
 	void BeginHitStun();
 	
