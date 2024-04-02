@@ -1,6 +1,7 @@
 #pragma once
 #include "Combat/JSCombatComponent.h"
 
+#include "JSCharacter.h"
 #include "Combat/JSCombatInterface.h"
 #include "Components/BoxComponent.h"
 #include "Sound/SoundCue.h"
@@ -133,6 +134,10 @@ void UJSCombatComponent::TakeDamage(uint8 InDamage)
 	{
 		BeginHitStun();
 		BeginHitPause();
+		if (AJSCharacter* MyOwner = Cast<AJSCharacter>(GetOwner()))
+		{
+			MyOwner->DamageFlash();
+		}
 	}
 }
 
