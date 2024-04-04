@@ -100,8 +100,12 @@ void UJSCombatComponent::ToggleAttackHitbox(bool Enabled)
 	}
 }
 
-void UJSCombatComponent::OnTakeDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType,
-	AController* InstigatedBy, AActor* DamageCauser)
+void UJSCombatComponent::OnTakeDamage(
+	AActor* DamagedActor,
+	float Damage,
+	const UDamageType* DamageType,
+	AController* InstigatedBy,
+	AActor* DamageCauser)
 {
 	TakeDamage(Damage);
 }
@@ -130,6 +134,7 @@ void UJSCombatComponent::TakeDamage(uint8 InDamage)
 		}
 
 		// TODO This should prob be handled by the character?
+		/*
 		if (const APaperZDCharacter* MyOwner = Cast<APaperZDCharacter>(GetOwner()))
 		{
 			if (UCapsuleComponent* Capsule = MyOwner->GetCapsuleComponent())
@@ -137,11 +142,18 @@ void UJSCombatComponent::TakeDamage(uint8 InDamage)
 				Capsule->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 			}
 		}
+	*/
 	}
 	else
 	{
-		BeginHitStun();
-		BeginHitPause();
+		if (AllowHitStun)
+		{
+			BeginHitStun();
+		}
+		if (AllowHitPause)
+		{
+			BeginHitPause();
+		}
 		if (AJSCharacter* MyOwner = Cast<AJSCharacter>(GetOwner()))
 		{
 			MyOwner->DamageFlash();

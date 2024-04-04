@@ -82,6 +82,10 @@ void AJSPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 
 void AJSPlayerCharacter::IC_Move_Triggered(const FInputActionValue& Value)
 {
+	if (!CombatComponent->CanAct())
+	{
+		return;
+	}
 	if (!IsValid(MyPlayerControllerPtr.Get()))
 	{
 		// TODO: Logging
@@ -124,7 +128,10 @@ void AJSPlayerCharacter::IC_Move_Triggered(const FInputActionValue& Value)
 
 void AJSPlayerCharacter::IC_Jump_Started(const FInputActionValue& Value)
 {
-	Jump();
+	if (CombatComponent->CanAct())
+	{
+		Jump();
+	}
 };
 
 void AJSPlayerCharacter::IC_Jump_Completed(const FInputActionValue& Value)
@@ -146,7 +153,7 @@ void AJSPlayerCharacter::IC_Shoot_Triggered(const FInputActionValue& Value)
 		return;
 	}
 	
-	if (MyCombatComponent->IsAttacking)
+	if (MyCombatComponent->IsAttacking || !MyCombatComponent->CanAct())
 	{
 		return;
 	}

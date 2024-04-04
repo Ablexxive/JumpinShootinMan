@@ -75,6 +75,12 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Animation")
 	FName ABPJumpName_Dead;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Character")
+	bool AllowHitPause = true;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Character")
+	bool AllowHitStun = true;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Character")
 	float ShootAnimationDuration = 0.4;
