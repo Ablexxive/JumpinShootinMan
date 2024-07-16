@@ -112,6 +112,11 @@ void UJSCombatComponent::OnTakeDamage(
 
 void UJSCombatComponent::TakeDamage(uint8 InDamage)
 {
+	if (DebugImmortal)
+	{
+		InDamage = 0;
+	}
+	
 	CurrentHealth -= InDamage;
 	CurrentHealth = FMath::Clamp(CurrentHealth, 0, MaxHealth);
 

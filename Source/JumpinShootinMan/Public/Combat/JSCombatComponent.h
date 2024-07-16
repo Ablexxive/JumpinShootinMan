@@ -126,6 +126,10 @@ public:
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Combat|Character|Runtime")
 	int32 CurrentHealth = 100;
 
+	/* Sets all incoming damage to 0 if true. */
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Combat|Character|Runtime")
+	bool DebugImmortal = false;
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Combat|Character")
 	EFaction MyFaction = EFaction::Player;
 	
@@ -140,7 +144,6 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Combat")
 	bool CanAct() const;
-	
 private:
 	TWeakObjectPtr<UBoxComponent> AttackHitBoxPtr;
 	

@@ -78,6 +78,22 @@ void AJSPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	{
 		EnhancedInputComponent->BindAction(InputConfig->InputShoot, ETriggerEvent::Triggered, this, &AJSPlayerCharacter::IC_Shoot_Triggered);
 	}
+	
+	if (DebugInputConfig == nullptr)
+	{
+		// TODO: Add Logging
+		return;	
+	}
+
+	if (DebugInputConfig->DebugInputRestart != nullptr)
+	{
+		EnhancedInputComponent->BindAction(DebugInputConfig->DebugInputRestart, ETriggerEvent::Triggered, this, &AJSPlayerCharacter::IC_DebugRestart_Triggered);
+	}
+	
+	if (DebugInputConfig->DebugInputToggleImmortal != nullptr)
+	{
+		EnhancedInputComponent->BindAction(DebugInputConfig->DebugInputToggleImmortal, ETriggerEvent::Triggered, this, &AJSPlayerCharacter::IC_DebugToggleImmortal_Triggered);
+	}
 }
 
 void AJSPlayerCharacter::IC_Move_Triggered(const FInputActionValue& Value)
@@ -162,4 +178,21 @@ void AJSPlayerCharacter::IC_Shoot_Triggered(const FInputActionValue& Value)
 	// Probably can just delete this function? But will revisit when adding a charge shot and maybe
 	// a melee shot.
 	//MyCombatComponent->DoAttack();
+}
+
+void AJSPlayerCharacter::IC_DebugRestart_Triggered(const FInputActionValue& Value)
+{
+	if (MyPlayerControllerPtr.Get())
+	{
+		MyPlayerControllerPtr->RestartLevel();
+	}	
+}
+
+void AJSPlayerCharacter::IC_DebugToggleImmortal_Triggered(const FInputActionValue& Value)
+{
+	//if (UJSCombatComponent* MyCombatComponent = CombatComponent.Get())
+	if (CombatComponent.Get())
+	{
+		CombatComponent->DebugImmortal = !CombatComponent->DebugImmortal;
+	}
 };

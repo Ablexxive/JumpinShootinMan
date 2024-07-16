@@ -33,6 +33,10 @@ private:
 	/*	My datastruct that defines Move/Jump/Ect. */
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	UJSInputConfig* InputConfig;
+	
+	/*	Defines some debug input actions. */
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	UJSDebugInputConfig* DebugInputConfig;
 
 	TWeakObjectPtr<APlayerController> MyPlayerControllerPtr; 
 
@@ -44,5 +48,10 @@ private:
 	void IC_Jump_Completed(const FInputActionValue& Value); // This is on letting go of the jump button before max hold time
 	void IC_Jump_Canceled(const FInputActionValue& Value);
 	void IC_Shoot_Triggered(const FInputActionValue& Value);
+
+	/* Debug Input Config functions. */
+	void IC_DebugRestart_Triggered(const FInputActionValue& Value);
+	void IC_DebugToggleImmortal_Triggered(const FInputActionValue& Value);
+	
 #pragma endregion
 };
